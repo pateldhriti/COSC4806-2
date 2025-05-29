@@ -34,7 +34,6 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':password', $password);
     $stmt->execute();
-  $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  return $rows;
+    return "User created successfully.";
   }
 }
