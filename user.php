@@ -23,6 +23,12 @@ public function get_all_users(){
     return "Username already exists.";
   }
 
+
+  if (strlen($password) < 8) || !preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password) || !preg_match('/[0-9]/', $password)) {
+    return "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.";
+  }
+
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
   
     $stmt = $db->prepare("INSERT INTO users (username, password) VALUES (:username, :password);");
     $stmt->bindParam(':username', $username);
