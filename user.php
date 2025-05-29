@@ -14,6 +14,16 @@ public function get_all_users(){
 }
   public function create_user($username, $password) {
     $db = db_connect();
+
+  $check_stmt = $db->prepare("SELECT * FROM users WHERE username = :username;");
+  $check_stmt->bindParam(':username', $username);
+  $check_stmt->execute();
+
+  if ($check_stmt->rowCount() > 0) {
+    return "Username already exists.";
+  }
+
+  
     $stmt = $db->prepare("INSERT INTO users (username, password) VALUES (:username, :password);");
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':password', $password);
